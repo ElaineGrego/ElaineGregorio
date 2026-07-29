@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elaine Gregório · Engenheira Ambiental</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #16261D;
+    --bg-deep: #101C15;
+    --surface: #1F3327;
+    --surface-line: #33493B;
+    --paper: #F2EEE1;
+    --paper-dim: #C9C4B2;
+    --ochre: #C9A227;
+    --ochre-soft: #E4C766;
+    --sage: #8FB08A;
+    --clay: #B4623E;
+    --radius: 2px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ochre-soft);
+  }
+
+  h1, h2, h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img, svg{ display:block; max-width:100%; }
+
+  /* ---------- topographic contour texture ---------- */
+  .contours{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.5;
+  }
+  .contours path{
+    fill: none;
+    stroke: var(--surface-line);
+    stroke-width: 1;
+  }
+  .contours path.accent{
+    stroke: var(--ochre);
+    opacity: 0.55;
+  }
+  .contours path{
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: draw 3.2s ease-out forwards;
+  }
+  @keyframes draw{
+    to{ stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .contours path{ animation: none; stroke-dashoffset: 0; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 6vw;
+  }
+  .mark{
+    display:flex; align-items:center; gap:12px;
+  }
+  .mark-badge{
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--ochre);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ochre-soft);
+    flex-shrink: 0;
+  }
+  .mark-text{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--paper-dim);
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+  nav ul{
+    display:flex; gap: 32px; list-style:none;
+  }
+  nav a{
+    font-size: 0.85rem;
+    color: var(--paper-dim);
+    transition: color 0.2s;
+  }
+  nav a:hover{ color: var(--ochre-soft); }
+  nav a:focus-visible, a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--ochre-soft);
+    outline-offset: 3px;
+  }
+  .nav-links{ display:flex; align-items:center; gap: 32px; }
+
+  @media (max-width: 720px){
+    nav ul{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    min-height: 86vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vh 6vw 8vh;
+  }
+  .hero-inner{
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+  }
+  .hero .eyebrow{ margin-bottom: 22px; }
+  .hero h1{
+    font-size: clamp(2.8rem, 7vw, 5.2rem);
+    line-height: 0.98;
+    margin-bottom: 20px;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .hero p.lede{
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    color: var(--paper-dim);
+    max-width: 540px;
+    margin-bottom: 34px;
+  }
+
+  .chip-row{
+    display:flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 42px;
+  }
+  .chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 7px 14px;
+    border: 1px solid var(--surface-line);
+    border-radius: 999px;
+    color: var(--paper-dim);
+  }
+
+  .cta-row{ display:flex; flex-wrap: wrap; gap: 16px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 14px 26px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    transition: transform 0.18s ease, background 0.18s ease, border-color .18s ease;
+  }
+  .btn-primary{
+    background: var(--ochre);
+    color: var(--bg-deep);
+  }
+  .btn-primary:hover{ background: var(--ochre-soft); transform: translateY(-2px); }
+  .btn-ghost{
+    border: 1px solid var(--surface-line);
+    color: var(--paper);
+  }
+  .btn-ghost:hover{ border-color: var(--ochre-soft); color: var(--ochre-soft); transform: translateY(-2px); }
+
+  /* location tag */
+  .geo-tag{
+    margin-top: 46px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--paper-dim);
+    letter-spacing: 0.06em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .geo-dot{
+    width:6px; height:6px; border-radius:50%; background: var(--sage);
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    position: relative;
+    padding: 90px 6vw;
+    border-top: 1px solid var(--surface-line);
+  }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap: 24px; margin-bottom: 56px; flex-wrap: wrap;
+  }
+  .section-head h2{ font-size: clamp(1.8rem, 3.2vw, 2.6rem); }
+  .section-head .eyebrow{ margin-bottom: 10px; }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--paper-dim);
+  }
+
+  /* ---------- legend / services ---------- */
+  .legend{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--surface-line);
+    border: 1px solid var(--surface-line);
+  }
+  .legend-item{
+    background: var(--bg);
+    padding: 34px 28px;
+  }
+  .legend-symbol{
+    width: 34px; height: 34px;
+    margin-bottom: 22px;
+  }
+  .legend-item h3{
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .legend-item p{
+    font-size: 0.92rem;
+    color: var(--paper-dim);
+  }
+
+  /* ---------- about / pull quote ---------- */
+  .about{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: start;
+  }
+  @media (max-width: 860px){
+    .about{ grid-template-columns: 1fr; }
+  }
+  .about p{
+    font-size: 1.02rem;
+    color: var(--paper-dim);
+    margin-bottom: 18px;
+  }
+  .pull{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    color: var(--ochre-soft);
+    line-height: 1.25;
+    border-left: 2px solid var(--ochre);
+    padding-left: 28px;
+  }
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    background: var(--surface);
+  }
+  .contact-box{
+    max-width: 640px;
+  }
+  .contact h2{ font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
+  .contact p{ color: var(--paper-dim); margin-bottom: 34px; max-width: 480px; }
+
+  footer{
+    padding: 40px 6vw;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap: wrap; gap: 16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--paper-dim);
+    border-top: 1px solid var(--surface-line);
+  }
+  footer a:hover{ color: var(--ochre-soft); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark">
+    <div class="mark-badge">EG</div>
+    <div class="mark-text">Elaine Gregório<br>Eng. Ambiental</div>
+  </div>
+  <div class="nav-links">
+    <nav>
+      <ul>
+        <li><a href="#atuacao">Área de atuação</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-ghost" href="https://www.instagram.com/elaine_eng.ambiental/" target="_blank" rel="noopener" style="padding:10px 18px; font-size:0.8rem;">Instagram ↗</a>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none; padding-top:2vh;">
+  <svg class="contours" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="accent" d="M -50 620 C 200 560, 380 680, 600 600 C 820 520, 980 640, 1250 580" />
+    <path d="M -50 660 C 220 600, 400 720, 620 640 C 840 560, 1000 680, 1250 620" />
+    <path d="M -50 700 C 240 640, 420 760, 640 680 C 860 600, 1020 720, 1250 660" />
+    <path d="M -50 740 C 260 680, 440 800, 660 720 C 880 640, 1040 760, 1250 700" />
+    <path class="accent" d="M -50 200 C 180 260, 340 140, 560 220 C 780 300, 940 180, 1250 240" />
+    <path d="M -50 160 C 200 220, 360 100, 580 180 C 800 260, 960 140, 1250 200" />
+    <path d="M -50 120 C 220 180, 380 60, 600 140 C 820 220, 980 100, 1250 160" />
+  </svg>
+
+  <div class="hero-inner">
+    <div class="eyebrow">Engenharia Ambiental · Brasil</div>
+    <h1>Elaine<br><em>Gregório</em></h1>
+    <p class="lede">Licenciamento ambiental, ESG e gestão ambiental para operações que crescem sem perder terreno com a conformidade — e com a sustentabilidade que ela representa na prática.</p>
+
+    <div class="chip-row">
+      <span class="chip">Licenciamento Ambiental</span>
+      <span class="chip">ESG</span>
+      <span class="chip">Gestão Ambiental</span>
+      <span class="chip">Sustentabilidade na prática</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.instagram.com/elaine_eng.ambiental/" target="_blank" rel="noopener">Seguir no Instagram</a>
+      <a class="btn btn-ghost" href="#contato">Solicitar contato</a>
+    </div>
+
+    <div class="geo-tag"><span class="geo-dot"></span> BRASIL · @elaine_eng.ambiental</div>
+  </div>
+</section>
+
+<section id="atuacao">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Legenda de atuação</div>
+      <h2>Onde a Elaine entra</h2>
+    </div>
+    <div class="section-num">03 frentes de trabalho</div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <svg class="legend-symbol" viewBox="0 0 34 34"><rect x="4" y="4" width="26" height="26" fill="none" stroke="#C9A227" stroke-width="1.5"/><path d="M4 17 H30 M17 4 V30" stroke="#C9A227" stroke-width="1"/></svg>
+      <h3>Licenciamento Ambiental</h3>
+      <p>Condução técnica de processos de licenciamento junto aos órgãos ambientais, da viabilidade inicial à obtenção e renovação de licenças.</p>
+    </div>
+    <div class="legend-item">
+      <svg class="legend-symbol" viewBox="0 0 34 34"><circle cx="17" cy="17" r="13" fill="none" stroke="#8FB08A" stroke-width="1.5"/><circle cx="17" cy="17" r="6" fill="none" stroke="#8FB08A" stroke-width="1"/></svg>
+      <h3>ESG</h3>
+      <p>Estruturação de práticas ambientais, sociais e de governança alinhadas ao negócio — transformando exigência regulatória em estratégia.</p>
+    </div>
+    <div class="legend-item">
+      <svg class="legend-symbol" viewBox="0 0 34 34"><path d="M17 4 L30 28 H4 Z" fill="none" stroke="#B4623E" stroke-width="1.5"/></svg>
+      <h3>Gestão Ambiental</h3>
+      <p>Planejamento e acompanhamento de rotinas ambientais internas, indicadores e conformidade contínua para operações de qualquer porte.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Perfil</div>
+      <h2>Sobre</h2>
+    </div>
+  </div>
+
+  <div class="about">
+    <div>
+      <p>Elaine Gregório é engenheira ambiental, com atuação voltada ao licenciamento ambiental, à estruturação de práticas ESG e à gestão ambiental de operações e projetos.</p>
+      <p>Seu trabalho parte de uma ideia simples: sustentabilidade só tem valor quando sai do discurso e entra na rotina — no processo, no documento, na decisão do dia a dia.</p>
+      <p>Acompanhe bastidores, conteúdos técnicos e novidades sobre licenciamento e gestão ambiental no perfil <a href="https://www.instagram.com/elaine_eng.ambiental/" target="_blank" rel="noopener" style="color:var(--ochre-soft); text-decoration:underline;">@elaine_eng.ambiental</a>.</p>
+    </div>
+    <div class="pull">
+      "Sustentabilidade na prática."
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="contact">
+  <div class="contact-box">
+    <div class="eyebrow">Contato</div>
+    <h2>Vamos falar sobre o seu processo ambiental?</h2>
+    <p>Envie uma mensagem pelo Instagram para tirar dúvidas sobre licenciamento, ESG ou gestão ambiental para o seu projeto ou empresa.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.instagram.com/elaine_eng.ambiental/" target="_blank" rel="noopener">Enviar mensagem no Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Elaine Gregório — Engenharia Ambiental</div>
+  <div><a href="https://www.instagram.com/elaine_eng.ambiental/" target="_blank" rel="noopener">instagram.com/elaine_eng.ambiental</a></div>
+</footer>
+
+</body>
+</html>
